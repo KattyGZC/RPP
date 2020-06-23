@@ -22,7 +22,7 @@ class User(models.Model):
 
 class Level(models.Model):
     name = models.CharField(max_length=50)
-
+    
     def __str__(self):
         return self.name
 
@@ -31,9 +31,13 @@ class Exercise(models.Model):
     text = models.TextField()
     punctuation = models.IntegerField()
 
+    def __str__(self):
+        return self.text
 
 class Score(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idExercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     value = models.FloatField()
     
+    def __str__(self):
+        return self.value
