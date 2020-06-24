@@ -1,24 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-class Role(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-class User(models.Model):
-    idRol = models.ForeignKey(Role, on_delete=models.CASCADE)
-    name = models.CharField(max_length=30)
-    lastname = models.CharField(max_length=30)
-    nickname = models.CharField(max_length=50)
-    password = models.CharField(max_length=80)
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.IntegerField()
     photo = models.TextField()
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class Level(models.Model):
     name = models.CharField(max_length=50)
@@ -35,6 +26,7 @@ class Exercise(models.Model):
         return self.text
 
 class Score(models.Model):
+    #idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idExercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     value = models.FloatField()
