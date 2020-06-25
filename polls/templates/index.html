@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 {% block content %}
 
-<h1>Bienvenido Tu nombre</h1>
+<h1>Bienvenido {{ user.usermane | upper }}</h1>
 
 {% endblock %}

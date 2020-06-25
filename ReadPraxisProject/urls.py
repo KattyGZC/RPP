@@ -18,10 +18,15 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from polls import views
 
 urlpatterns = [
-    path('polls/', include('polls.urls')),
+    
+    path('',include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url='/polls/', permanent=True)),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('index/', views.index)
+]   
+
+    
 
