@@ -1,13 +1,14 @@
 <!doctype html>
 <html lang="en">
 {% load static %}
+{% load crispy_forms_tags %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Registro</title>
+    <title>Nuevo usuario</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
 
@@ -34,23 +35,28 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 
-<body class="text-center">
-    <form class="form-signin" method="POST" action="">
-        {% csrf_token %}
-        <img class="mb-4" src="{% static 'images/rpp_logo.png' %}" alt="" width="150">
-        <h1 class="h3 mb-3 font-weight-normal">Registro de nuevo usuario</h1>
-        <label for="inputUsername" class="sr-only">Usuario</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Aqu&iacute; tu usuario" required autofocus name="username">
-        <label for="inputPassword" class="sr-only">Contraseña</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Aqu&iacute; tu contraseña" required name="password">
-        <div class="checkbox mb-3">
-            <label>
-                Ya tienes una cuenta <a href="{% url 'login' %}">Inicia Sesi&oacute;n</a>
-            </label>
+<body>
+    <div class="container" style="padding-top: 2em;">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <form method="POST" action="" novalidate> 
+                    <div class="text-center">
+                        <img class="mb-4 " src="{% static 'images/rpp_logo.png' %}" alt="RPP" width="150">
+                        <h1 class="h3 mb-3 font-weight-normal">Por favor ingresa tus datos</h1>
+                    </div>
+                    {% csrf_token %}
+                    {{ form|crispy}}
+                    <div class="text-center">
+                        <label>
+                            ¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesi&oacute;n</a>
+                        </label><br>
+                        <button class="btn btn-lg btn-primary text-center" type="submit">Registrarse</button>
+                        <p class="mt-5 mb-3 text-muted">&copy; Read Praxis Project</p>
+                    </div>
+                </form>
+            </div>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-        <p class="mt-5 mb-3 text-muted">&copy; Read Praxis Project</p>
-    </form>
+    </div>
 </body>
 
 </html>
