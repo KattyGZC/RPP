@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import RedirectView
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import logout_then_login
+from django.contrib.auth.decorators import login_required
 from polls import views
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
+    path('', login_required(views.index), name='index'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('polls/', include('polls.urls')),
+    #path('accounts/login/', views.login, name='login'),
+    path('logout/', logout_then_login, name='logout'),
+    path('register/', views.register, name = 'register'),
     path('admin/', admin.site.urls),
-    path('',include('django.contrib.auth.urls')),
 ]   
 
     

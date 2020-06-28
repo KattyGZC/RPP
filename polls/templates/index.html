@@ -1,6 +1,11 @@
 {% extends "base_generic.html" %}
 {% block content %}
 
-<h1>Bienvenido {{ user.usermane | upper }}</h1>
+<h1>Bienvenido/a {{ user.username | upper }}</h1>
+<br>
+<p>Esta página es exclusiva para usuarios registrados.</p>
+<br>
+<a href="{% url 'logout' %}">Logout</a>
+
 
 {% endblock %}
