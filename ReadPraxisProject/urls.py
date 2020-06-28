@@ -22,10 +22,9 @@ from django.contrib.auth import views as auth_views
 from polls import views
 
 urlpatterns = [
-    
-    path('',include('django.contrib.auth.urls')),
+    path('index/', views.index, name='index'),
     path('admin/', admin.site.urls),
-    path('index/', views.index)
+    path('',include('django.contrib.auth.urls')),
 ]   
 
     
