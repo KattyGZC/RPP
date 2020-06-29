@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 {% load crispy_forms_tags %}
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +12,8 @@
     <title>Nuevo usuario</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
-
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <!-- Bootstrap core CSS -->
     <link href="{% static 'assets/dist/css/bootstrap.css' %}" rel="stylesheet">
 
@@ -23,6 +25,7 @@
             -o-background-size: cover;
             background-size: cover;
         }
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -38,7 +41,7 @@
             }
         }
     </style>
-    
+
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 
@@ -46,7 +49,7 @@
     <div class="container" style="padding-top: 20em;">
         <div class="row justify-content-center">
             <div class="col-6" style="background-color: #ffffff; padding: 2em; border-radius: 5%;">
-                <form method="POST" action="" novalidate> 
+                <form method="POST" action="" novalidate>
                     <div class="text-center">
                         <img class="mb-4 " src="{% static 'images/rpp_logo.png' %}" alt="RPP" width="150">
                         <h1 class="h3 mb-3 font-weight-normal">Por favor ingresa tus datos</h1>
