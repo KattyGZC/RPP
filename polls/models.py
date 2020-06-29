@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(default = date.today)
-    photo = models.ImageField('Foto de perfil', upload_to='perfil/', max_length=200, blank=True, null=True)
+    photo = models.ImageField('Foto de perfil', upload_to='perfil/', max_length=200, default='https://api.adorable.io/avatars/face/eyes6/nose4/mouth3/B3D457')
 
     def __str__(self):
         return self.user.username

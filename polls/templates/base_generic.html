@@ -52,6 +52,9 @@
       </button>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="#">Editar perfil</a>
+        {% if user.username == 'admin' %}
+        <a class="dropdown-item" href="/admin">Panel de Administraci&oacute;n</a>
+        {% endif %}
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesi&oacute;n</a>
       </div>
