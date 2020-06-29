@@ -16,6 +16,13 @@
     <link href="{% static 'assets/dist/css/bootstrap.css' %}" rel="stylesheet">
 
     <style>
+        body {
+            background: url("{% static 'images/background.png' %}") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -36,9 +43,9 @@
 </head>
 
 <body>
-    <div class="container" style="padding-top: 2em;">
+    <div class="container" style="padding-top: 20em;">
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-6" style="background-color: #ffffff; padding: 2em; border-radius: 5%;">
                 <form method="POST" action="" novalidate> 
                     <div class="text-center">
                         <img class="mb-4 " src="{% static 'images/rpp_logo.png' %}" alt="RPP" width="150">

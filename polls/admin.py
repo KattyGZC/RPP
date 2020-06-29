@@ -11,7 +11,7 @@ admin.site.register(Score)
 
 class ProfileAdmin(admin.ModelAdmin):
 
-    list_display = ('user', 'age')
+    list_display = ('user', 'birth_date')
 
 class ExerciseAdmin(admin.ModelAdmin):
     
