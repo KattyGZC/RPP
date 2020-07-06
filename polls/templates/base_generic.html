@@ -10,6 +10,7 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
   {% load static %}
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
   <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
@@ -45,16 +46,21 @@
 <body class="background">
 
   <header class="navbar navbar-dark flex-column flex-md-row bd-navbar" style="background-color: #e3f2fd;">
-    <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80"><span
+    <a href="{% url 'index' %}">
+      <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" >
+    </a>
+    <span
       style="font-weight: bold; font-size: 1.5em;">¡Pon a prueba tu
       lectura!</span>
     <div class="dropdown">
+      <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle"
+            width="50" height="50">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         {{ user.username }}
       </button>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="#">Editar perfil</a>
+        <a class="dropdown-item" href="{% url 'edit_profile' %}">Editar perfil</a>
         {% if user.username == 'admin' %}
         <a class="dropdown-item" href="/admin">Panel de Administraci&oacute;n</a>
         {% endif %}

@@ -56,6 +56,7 @@
                     </div>
                     {% csrf_token %}
                     {{ form|crispy}}
+                    {{ extended_profile_form|crispy}}
                     <div class="text-center">
                         <label>
                             ¿Ya tienes una cuenta? <a href="{% url 'login' %}">Inicia sesi&oacute;n</a>

@@ -1,18 +1,26 @@
 {% extends "base_generic.html" %}
 {% block content %}
-
+{% load static %}
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h1
-            style="padding-top: 2.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-            
+        <h1 style="padding-top: 1.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
             {% if user.username == 'admin' %}
-                Bienvenido/a Administrador
+            Bienvenido/a Administrador
             {% else %}
-                Bienvenido/a {{ user.first_name }}</h1>
-                
+            Bienvenido/a {{ user.first_name }}
             {% endif %}
-                
+        </h1>
+    </div>
+    </h1>
+    <div class="row justify-content-center">
+        
+        {% if user.profile.photo %}
+            <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle"
+            width="300" height="300">
+        {% else %}
+            <p>No tienes foto</p>
+        {% endif %}
+            
     </div>
 </div>
 
