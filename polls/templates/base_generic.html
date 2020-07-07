@@ -10,6 +10,7 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   
   {% load static %}
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
@@ -45,10 +46,13 @@
 
 <body class="background">
 
-  <header class="navbar navbar-dark flex-column flex-md-row bd-navbar" style="background-color: #e3f2fd;">
-    <a href="{% url 'index' %}">
-      <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" >
-    </a>
+  <header class="navbar navbar-dark flex-column flex-md-row bd-navbar sticky-top " style="background-color: #e3f2fd;">
+    <div>
+      <a href="{% url 'index' %}">
+        <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" >
+      </a>
+      <a href="{% url 'index' %}" style="font-weight: bold;">HOME</a>
+    </div>
     <span
       style="font-weight: bold; font-size: 1.5em;">¡Pon a prueba tu
       lectura!</span>
@@ -60,6 +64,7 @@
         {{ user.username }}
       </button>
       <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
         <a class="dropdown-item" href="{% url 'edit_profile' %}">Editar perfil</a>
         {% if user.username == 'admin' %}
         <a class="dropdown-item" href="/admin">Panel de Administraci&oacute;n</a>

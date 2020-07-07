@@ -1,0 +1,60 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+<div class="container-fluid">
+    <div class="row justify-content-left" style="padding-left: 1em;">
+        <h1
+            style="padding-top: 0.5em; font-size: 3em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            {% if user.username == 'admin' %}
+            Perfil de Administrador
+            {% else %}
+            Perfil de {{ user.first_name }}
+            {% endif %}
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-7">
+            <div class="card mb-3 shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 700px; padding: 1em;">
+                <div class="row no-gutters" style="padding-top: 1em;">
+                    <div class="col-md-4">
+                        <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded" height="300"
+                            width="250">
+                    </div>
+                    <div class="col-md-8"  style="padding-left: 0.5em">
+                        <div class="card-body">
+                            <h5 class="card-title" style="padding-left: 1em;"><strong>Usuario:</strong> {{ user.username }}</h5>
+                            <ul class="list-group list-group-flush" style="padding-left: 1.5em;">
+                                <li class="list-group-item"><strong>Nombre:</strong> {{ user.first_name }} </li>
+                                <li class="list-group-item"><strong>Apellido:</strong> {{ user.last_name }}</li>
+                                <li class="list-group-item"><strong>Fecha de nacimiento:</strong> {{ user.profile.birth_date }}
+                                </li>
+                                <li class="list-group-item"><strong>Último inicio de sesión:</strong> {{ user.last_login }}</li>
+                                <li class="list-group-item"><a href="{% url 'edit_profile' %}" class="card-link">Editar perfil</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-3 shadow-lg p-3 mb-5 bg-white rounded" style="max-width: 400px; padding: 1em;">
+                <div class="row no-gutters" style="padding-top: 1em;">
+                    <div class="col"  style="padding-left: 0.5em">
+                        <div class="card-body">
+                            <h5 class="card-title" style="padding-left: 1em;"><strong>Puntajes</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Nivel básico:</strong> 0 </li>
+                                <li class="list-group-item"><strong>Nivel intermedio:</strong> 0</li>
+                                <li class="list-group-item"><strong>Nivel avanzado:</strong> 0</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

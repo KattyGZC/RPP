@@ -3,7 +3,7 @@
 {% load static %}
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h1 style="padding-top: 1.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+        <h1 style="padding-top: 0.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
             {% if user.username == 'admin' %}
             Bienvenido/a Administrador
             {% else %}
@@ -16,13 +16,17 @@
         
         {% if user.profile.photo %}
             <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle"
-            width="300" height="300">
+            width="300" height="300" style="margin-bottom: 1em;">
         {% else %}
             <p>No tienes foto</p>
         {% endif %}
             
     </div>
+    <div class="row justify-content-center">
+        <a href="{% url 'niveles' %}">
+            <img src="{% static 'images/boton_juguemos.png' %}" alt="">
+          </a>
+    </div>
 </div>
-
 
 {% endblock %}

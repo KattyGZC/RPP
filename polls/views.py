@@ -8,6 +8,9 @@ from .forms import UCFWithOthers, UEditF, ProfileForm
 def index(request):
     return render(request, 'index.html')
 
+def perfil(request):
+    return render(request, 'perfil.html')
+
 def login(request):
     return render(request, 'registration/login.html')
 
@@ -34,7 +37,7 @@ def editProfile(request):
         if form.is_valid() and extended_profile_form.is_valid():
             form.save()
             extended_profile_form.save()
-            return redirect('/')
+            return redirect('/polls/perfil')
     else:
         form = UEditF(instance=request.user)
         extended_profile_form = ProfileForm(instance=request.user.profile)
@@ -45,3 +48,7 @@ def editProfile(request):
     }
 
     return render(request, 'registration/edit_profile.html', context)
+
+def choice_level(request):
+    return render(request, 'niveles.html')
+
