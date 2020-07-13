@@ -1,6 +1,6 @@
 from datetime import date
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from bootstrap_datepicker_plus import DatePickerInput
@@ -21,6 +21,11 @@ class UEditF(UserChangeForm):
         model = User
         fields = ['first_name', 'last_name']
 
+# class UserChangePass(PasswordChangeForm):
+
+#     class Meta:
+#         model = User
+
 class ProfileForm(forms.ModelForm):
 
     birth_date = forms.DateField(widget=DatePickerInput(format='%d/%m/%Y'), label='Fecha de nacimiento')
@@ -29,3 +34,8 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['birth_date', 'photo']
+
+
+
+
+

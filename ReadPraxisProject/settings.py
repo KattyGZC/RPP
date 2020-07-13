@@ -26,7 +26,7 @@ SECRET_KEY = '+giixp=c135(bog#rq@5+7ms%9-6tzgr&9(=y1y$y-svy(4mlr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition

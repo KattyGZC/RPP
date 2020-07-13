@@ -1,9 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as do_login
+from django.contrib.auth.forms import PasswordChangeForm
+from django.template import RequestContext
 from .models import  Profile, Level, Exercise, Score
 from .forms import UCFWithOthers, UEditF, ProfileForm
 
+def error_404_view(request, exception):
+    return render(request,'404.html')
 
 def index(request):
     return render(request, 'index.html')
@@ -46,8 +50,14 @@ def editProfile(request):
             'form': form,
             'extended_profile_form':extended_profile_form
     }
-
+    form.fields['password'].help_text = 'Para cambiar la contraseña has clic en el menú superior derecho "Cambiar contraseña"'
     return render(request, 'registration/edit_profile.html', context)
+
+# def changePassword(request):
+#     form = UserChangePass(request.POST)
+#     return render(request, 'registration/password_change.html', {
+#         'form': form,
+#     })
 
 def choice_level(request):
     return render(request, 'niveles.html')

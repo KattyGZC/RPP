@@ -1,8 +1,38 @@
 {% extends "base_generic.html" %}
 {% block content %}
 {% load static %}
+<style>
+    .levels_img {
+        margin: 1em;
+        border-width: 5px;
+        border-radius: 30px;
+        border-style: solid;
+
+        -webkit-transition: all 0.7s ease;
+        -moz-transition: all 0.7s ease;
+        -o-transition: all 0.7s ease;
+        -ms-transition: all 0.7s ease;
+    }
+
+    .levels_img:hover {
+        transform: scale(0.9);
+        cursor: pointer;
+    }
+</style>
+
 <div class="container-fluid">
-    
+    <div class="row">
+        <div class="col-4">
+            <img src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img" id="basic">
+        </div>
+        <div class="col-4">
+            <img src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img"
+                id="intermediate">
+        </div>
+        <div class="col-4">
+            <img src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img" id="advanced">
+        </div>
+    </div>
 </div>
 
 

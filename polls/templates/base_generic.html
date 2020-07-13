@@ -49,9 +49,8 @@
   <header class="navbar navbar-dark flex-column flex-md-row bd-navbar sticky-top " style="background-color: #e3f2fd;">
     <div>
       <a href="{% url 'index' %}">
-        <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" >
+        <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" > <strong> HOME</strong>
       </a>
-      <a href="{% url 'index' %}" style="font-weight: bold;">HOME</a>
     </div>
     <span
       style="font-weight: bold; font-size: 1.5em;">¡Pon a prueba tu
@@ -66,6 +65,7 @@
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="{% url 'perfil' %}">Perfil</a>
         <a class="dropdown-item" href="{% url 'edit_profile' %}">Editar perfil</a>
+        <a class="dropdown-item" href="{% url 'password_change' %}">Cambiar contraseña</a>
         {% if user.username == 'admin' %}
         <a class="dropdown-item" href="/admin">Panel de Administraci&oacute;n</a>
         {% endif %}
