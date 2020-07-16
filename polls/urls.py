@@ -6,9 +6,8 @@ from . import views
 
 urlpatterns = [
     #path('/index', views.index, name='index'),
-    path('edit/', login_required(views.editProfile), name='edit_profile'),
+    path('edit/', login_required(views.edit_profile), name='edit_profile'),
     path('perfil/', login_required(views.perfil), name='perfil'),
     path('niveles/', login_required(views.choice_level), name='niveles'),
+    path('ejercicios/', login_required(views.exercises), name='ejercicios')
 ]
-
-handler404 = 'polls.views.error_404_view'

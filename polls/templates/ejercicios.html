@@ -1,0 +1,17 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    
+    {% if level == '1' %}
+        <h1>Ejercicios Nivel Básico</h1>
+        {% elif level == '2' %}
+            <h1>Ejercicios Nivel Intermedio</h1>
+        {% else %}
+            <h1>Ejercicios Nivel Avanzado</h1>
+    {% endif %}
+           
+    {% for objeto in exersices %}
+    {{ objeto.text }}<br>
+    {% endfor %}
+{% endblock %}
+    

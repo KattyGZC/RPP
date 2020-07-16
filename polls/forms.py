@@ -21,11 +21,6 @@ class UEditF(UserChangeForm):
         model = User
         fields = ['first_name', 'last_name']
 
-# class UserChangePass(PasswordChangeForm):
-
-#     class Meta:
-#         model = User
-
 class ProfileForm(forms.ModelForm):
 
     birth_date = forms.DateField(widget=DatePickerInput(format='%d/%m/%Y'), label='Fecha de nacimiento')

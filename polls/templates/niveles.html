@@ -22,16 +22,21 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-4">
-            <img src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img" id="basic">
-        </div>
-        <div class="col-4">
-            <img src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img"
-                id="intermediate">
-        </div>
-        <div class="col-4">
-            <img src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img" id="advanced">
-        </div>
+        <form method='POST' action="{% url 'ejercicios' %}"  class="col-4">
+            {% csrf_token %}
+            <input type="hidden" name="level" value="1">
+            <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img"></input>
+        </form>
+        <form method='POST' action="{% url 'ejercicios' %}" class="col-4">
+            {% csrf_token %}
+            <input type="hidden" name="level" value="2">
+            <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img">
+        </form>
+        <form method='POST' action="{% url 'ejercicios' %}" class="col-4">
+            {% csrf_token %}
+            <input type="hidden" name="level" value="3">
+            <input type="image" src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img">
+        </form>
     </div>
 </div>
 

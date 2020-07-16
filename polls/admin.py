@@ -1,12 +1,8 @@
 from django.contrib import admin
-
 from .models import Profile, User, Level, Exercise, Score
 
 
-#admin.site.register(Role)
-#admin.site.register(Profile)
 admin.site.register(Level)
-# admin.site.register(Exercise)
 admin.site.register(Score)
 
 class ProfileAdmin(admin.ModelAdmin):
