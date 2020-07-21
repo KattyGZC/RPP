@@ -21,22 +21,29 @@
 </style>
 
 <div class="container-fluid">
-    <div class="row">
-        <form method='POST' action="{% url 'ejercicios' %}"  class="col-4">
-            {% csrf_token %}
-            <input type="hidden" name="level" value="1">
-            <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img"></input>
-        </form>
-        <form method='POST' action="{% url 'ejercicios' %}" class="col-4">
-            {% csrf_token %}
-            <input type="hidden" name="level" value="2">
-            <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img">
-        </form>
-        <form method='POST' action="{% url 'ejercicios' %}" class="col-4">
-            {% csrf_token %}
-            <input type="hidden" name="level" value="3">
-            <input type="image" src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img">
-        </form>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <h1 style="font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                Escoge un nivel:
+            </h1>
+        </div>
+        <div class="row">
+            <form method='POST' action="{% url 'ejercicios' %}"  class="col-md-4 col-xs-12">
+                {% csrf_token %}
+                <input type="hidden" name="level" value="1">
+                <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img"></input>
+            </form>
+            <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
+                {% csrf_token %}
+                <input type="hidden" name="level" value="2">
+                <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img">
+            </form>
+            <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
+                {% csrf_token %}
+                <input type="hidden" name="level" value="3">
+                <input type="image" src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img">
+            </form>
+        </div>
     </div>
 </div>
 
