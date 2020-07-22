@@ -11,22 +11,26 @@
         {% endif %}
     </div>
     <div class="row justify-content-center">
-        <div id='exe' class="col-6" style="background-color: #ffffff; padding: 1em; margin: 1em; border-radius: 10px;">   
-
-        </div>
-        <input type="button" value="Siguiente" onclick="show_exercice()">
+        <h4 id='exe' class="col-6" style="background-color: #ffffff; padding: 1em; margin: 1em; 
+        border-radius: 10px; font-style: italic; text-align: center;"></h4>
+        <input type="button" value="Siguiente" onclick="show_exercise()">
     </div>
     
     <script>
+        var json_exe = '{{ json_exercise }}'
+        const regex = /&quot;/gi
+        json_exe = json_exe.replace(regex, '"')
+        json_exe = JSON.parse(json_exe)
+        console.log(json_exe)
+
         var exe = document.getElementById('exe');
-        var list_excercices = '{{ exercices }}'
-        list_excercices = list_excercices.split('%')
-        list_excercices = list_excercices.sort(()=>{return Math.random()-0.5})
-        show_exercice()
-        function show_exercice(){
-            if(list_excercices.length > 0){
-                exercice = list_excercices.pop()          
-                exe.innerHTML = exercice;
+        json_exe = json_exe.sort(()=>{return Math.random()-0.5})
+        show_exercise()
+        function show_exercise(){
+            if(json_exe.length > 0){
+                exercise = json_exe.pop()
+                console.log(exercise)          
+                exe.innerHTML = exercise.fields.text;
             }else{
                 alert('Se terminaron los ejercicios')
             }

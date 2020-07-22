@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login as do_login
+from django.core import serializers
 from .models import  Profile, Level, Exercise, Score
 from .forms import UCFWithOthers, UEditF, ProfileForm
 import json
@@ -61,13 +62,9 @@ def exercises(request):
             if key == 'level':
                 level = value
     obj_exercise = Exercise.objects.filter(idLevel=level)
-    list_exercise = []
-    for exercise in obj_exercise:
-        list_exercise.append(exercise.text)
-    string_exercice = "%".join(list_exercise)
-    print(string_exercice)
+    exercise_json = serializers.serialize('json', obj_exercise)
     context = {
         'level': level,
-        'exercices': string_exercice,
+        'json_exercise': exercise_json
     }
     return render(request, 'ejercicios.html', context)
