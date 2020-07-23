@@ -1,41 +1,94 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
-    <div class="col-5" style="background-color: #ffffff; padding: 0.5em; margin: 1em; border-radius: 5px;">       
-        {% if level == '1' %}
+{% load static %}
+<style>
+    .button_actions {
+        margin-bottom: 0.5em;
+        width: 6em;
+        height: 6em;
+        padding: 0.5em;
+        background-color: azure;
+        border-radius: 20px;
+        -webkit-transition: all 0.7s ease;
+        -moz-transition: all 0.7s ease;
+        -o-transition: all 0.7s ease;
+        -ms-transition: all 0.7s ease;
+
+        -webkit-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+    }
+
+    .button_actions:hover {
+        transform: scale(0.9);
+    }
+
+    .button_actions:focus {
+        outline: none;
+        transform: scale(0.9);
+        background-color: #cbd2db;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row ">
+        <div class="col-5 d-flex justify-content-center" style="background-color: #ffffff; padding: 0.5em; margin: 1em; border-radius: 5px;">
+            {% if level == '1' %}
             <h1>Ejercicios Nivel Básico</h1>
             {% elif level == '2' %}
-                <h1>Ejercicios Nivel Intermedio</h1>
+            <h1>Ejercicios Nivel Intermedio</h1>
             {% else %}
-                <h1>Ejercicios Nivel Avanzado</h1>
-        {% endif %}
-    </div>
-    <div class="col-12 justify-content-center">
-        <div class="row justify-content-center">
-            <h4 id='exe' class="col-6" style="background-color: #ffffff; padding: 1em; margin: 1em; 
-            border-radius: 10px; font-style: italic; text-align: center;"></h4>
+            <h1>Ejercicios Nivel Avanzado</h1>
+            {% endif %}
         </div>
-        <input type="button" value="Siguiente" onclick="show_exercise()">
     </div>
-    
-    <script>
-        var json_exe = '{{ json_exercise }}'
-        const regex = /&quot;/gi
-        json_exe = json_exe.replace(regex, '"')
-        json_exe = JSON.parse(json_exe)
-        console.log(json_exe)
-        var exe = document.getElementById('exe');
-        json_exe = json_exe.sort(()=>{return Math.random()-0.5})
-        show_exercise()
-        function show_exercise(){
-            if(json_exe.length > 0){
-                exercise = json_exe.pop()
-                console.log(exercise)          
-                exe.innerHTML = exercise.fields.text;
-            }else{
-                alert('Se terminaron los ejercicios')
-            }
+
+    <div class="row" style="margin-top: 3em;">
+        <div class="col-3">
+            <div class="d-flex justify-content-center">
+                <span style="font-size: 3em; text-align: center; color: oldlace;">Tu puntaje <br>0</span>
+            </div>
+
+        </div>
+        <div class="col-7">
+            <div class="row d-flex justify-content-center">
+                <h4 id='exe' class="d-flex justify-content-center" style="background-color: #ffffff; padding: 1em; 
+                        border-radius: 10px; font-style: italic; text-align: center; color: navy;"></h4>
+            </div>
+        </div>
+        <div class="col-2 ">
+            <div class="row d-flex justify-content-center">
+                <input type="image" src="{% static 'images/grabar.svg' %}" alt="Grabar" class="button_actions" title="Grabar">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <input type="image" src="{% static 'images/stop.svg' %}" alt="Detener" class="button_actions" title="Detener">
+            </div>
+            <div class="row d-flex justify-content-center">
+                <input type="image" src="{% static 'images/next.svg' %}" alt="Siguiente" onclick="show_exercise()"
+                    class="button_actions" title="Siguiente">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var json_exe = '{{ json_exercise }}'
+    const regex = /&quot;/gi
+    json_exe = json_exe.replace(regex, '"')
+    json_exe = JSON.parse(json_exe)
+    console.log(json_exe)
+    var exe = document.getElementById('exe');
+    json_exe = json_exe.sort(() => { return Math.random() - 0.5 })
+    show_exercise()
+    function show_exercise() {
+        if (json_exe.length > 0) {
+            exercise = json_exe.pop()
+            console.log(exercise)
+            exe.innerHTML = exercise.fields.text;
+        } else {
+            alert('Se terminaron los ejercicios')
         }
-    </script>
+    }
+</script>
 {% endblock %}
-    

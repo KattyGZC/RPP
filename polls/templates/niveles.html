@@ -4,19 +4,28 @@
 <style>
     .levels_img {
         margin: 1em;
-        border-width: 5px;
+        border-width: 4px;
         border-radius: 30px;
         border-style: solid;
+        border-color: #3085d1;
 
         -webkit-transition: all 0.7s ease;
         -moz-transition: all 0.7s ease;
         -o-transition: all 0.7s ease;
         -ms-transition: all 0.7s ease;
+
+        -webkit-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
     }
 
     .levels_img:hover {
         transform: scale(0.9);
         cursor: pointer;
+    }
+
+    .levels_img:focus {
+        outline: none;
     }
 </style>
 
@@ -28,15 +37,17 @@
             </h1>
         </div>
         <div class="row">
-            <form method='POST' action="{% url 'ejercicios' %}"  class="col-md-4 col-xs-12">
+            <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}
                 <input type="hidden" name="level" value="1">
-                <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico" class="levels_img"></input>
+                <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico"
+                    class="levels_img"></input>
             </form>
             <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}
                 <input type="hidden" name="level" value="2">
-                <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio" class="levels_img">
+                <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio"
+                    class="levels_img">
             </form>
             <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}

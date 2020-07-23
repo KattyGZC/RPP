@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  
+
   {% load static %}
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
   <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
@@ -19,8 +19,11 @@
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
+    html, body {
+      min-height: 100%;
+    }
     .background {
-      background: url("{% static 'images/background_opacity.png' %}") no-repeat center center fixed;
+      background-image: linear-gradient(to right top, #000080, #0047b2, #007cd1, #00aee4, #71dff4);
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -46,20 +49,21 @@
 
 <body class="background">
 
-  <header class="navbar navbar-dark flex-column flex-md-row bd-navbar sticky-top " style="background-color: #e3f2fd;">
+  <header class="navbar navbar-dark flex-column flex-md-row bd-navbar sticky-top" style="background-color: #020f818f;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);">
     <div>
-      <a href="{% url 'index' %}">
-        <img src="{% static 'images/rpp_logo.png' %}" alt="" width="80" > <strong> HOME</strong>
+      <a href="{% url 'index' %}" style="text-decoration: none; font-size: 1.3em; font-weight: bold; color: #ffffff;">
+        <img src="{% static 'images/rpp_logo_blanco.png' %}" alt="" width="80"> <strong> HOME</strong>
       </a>
     </div>
-    <span
-      style="font-weight: bold; font-size: 1.5em;">¡Pon a prueba tu
+    <span style="font-weight: bold; font-size: 1.5em; color: #ffffff;">¡Pon a prueba tu
       lectura!</span>
     <div class="dropdown">
-      <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle"
-            width="50" height="50">
+      <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle" width="50"
+        height="50">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+        aria-haspopup="true" aria-expanded="false" style="color: #ffffff;">
         {{ user.username }}
       </button>
       <div class="dropdown-menu dropdown-menu-right">

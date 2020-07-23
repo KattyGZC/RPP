@@ -1,31 +1,59 @@
 {% extends "base_generic.html" %}
 {% block content %}
 {% load static %}
+<style>
+    .shadow {
+        -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
+    }
+
+    .gradient {
+        -webkit-transition: all 0.7s ease;
+        -moz-transition: all 0.7s ease;
+        -o-transition: all 0.7s ease;
+        -ms-transition: all 0.7s ease;
+        background-image: linear-gradient(to top, #01339c, #0057b8, #0078cd, #0098dc, #00b7e7, #00b7e7, #00b7e7, #00b7e7, #0098dc, #0078cd, #0057b8, #01339c);
+    }
+
+    .gradient:hover {
+        transform: scale(0.9);
+        cursor: pointer;
+    }
+</style>
+
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h1 style="padding-top: 0.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
-            {% if user.username == 'admin' %}
-            Bienvenido/a Administrador
-            {% else %}
-            Bienvenido/a {{ user.first_name }}
-            {% endif %}
-        </h1>
-    </div>
-    </h1>
-    <div class="row justify-content-center">
-        
-        {% if user.profile.photo %}
-            <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}" class="rounded-circle"
-            width="300" height="300" style="margin-bottom: 1em;">
-        {% else %}
-            <p>No tienes foto</p>
-        {% endif %}
-            
-    </div>
-    <div class="row justify-content-center">
-        <a href="{% url 'niveles' %}">
-            <img src="{% static 'images/boton_juguemos.png' %}" alt="">
-          </a>
+        <div class="col-6"
+            style="background-color: #ffffff; padding-bottom: 1em; margin-top: 1em; border-radius: 20px;">
+            <div class="row justify-content-center">
+                <h1
+                    style="padding-top: 0.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                    {% if user.username == 'admin' %}
+                    Bienvenido/a Administrador
+                    {% else %}
+                    Bienvenido/a {{ user.first_name }}
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="row justify-content-center">
+
+                {% if user.profile.photo %}
+                <div class="rounded-circle shadow" style="width: 300px; height: 300px; margin-bottom: 1em;">
+                    <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}"
+                        class="rounded-circle shadow" width="100%" height="100%">
+                    {% else %}
+                    <p>No tienes foto</p>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="row justify-content-center">
+                <a href="{% url 'niveles' %}" class="shadow gradient" style="text-decoration: none; padding: 0.5em; border-radius: 20px;
+                font-size: 1.8em; font-weight: bold; color: midnightblue;">
+                    ¡JUGUEMOS!
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
