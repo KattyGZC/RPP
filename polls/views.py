@@ -3,7 +3,6 @@ from django.contrib.auth import login as do_login
 from django.core import serializers
 from .models import  Profile, Level, Exercise, Score
 from .forms import UCFWithOthers, UEditF, ProfileForm
-import json
 
 def error_404_view(request):
     return render(request, '404.html')

@@ -10,9 +10,11 @@
                 <h1>Ejercicios Nivel Avanzado</h1>
         {% endif %}
     </div>
-    <div class="row justify-content-center">
-        <h4 id='exe' class="col-6" style="background-color: #ffffff; padding: 1em; margin: 1em; 
-        border-radius: 10px; font-style: italic; text-align: center;"></h4>
+    <div class="col-12 justify-content-center">
+        <div class="row justify-content-center">
+            <h4 id='exe' class="col-6" style="background-color: #ffffff; padding: 1em; margin: 1em; 
+            border-radius: 10px; font-style: italic; text-align: center;"></h4>
+        </div>
         <input type="button" value="Siguiente" onclick="show_exercise()">
     </div>
     
@@ -22,7 +24,6 @@
         json_exe = json_exe.replace(regex, '"')
         json_exe = JSON.parse(json_exe)
         console.log(json_exe)
-
         var exe = document.getElementById('exe');
         json_exe = json_exe.sort(()=>{return Math.random()-0.5})
         show_exercise()
