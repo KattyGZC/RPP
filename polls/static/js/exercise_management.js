@@ -12,7 +12,7 @@ var exe = document.getElementById('exe');
 json_exe = json_exe.sort(() => { return Math.random() - 0.5 })
 show_exercise()
 
-window.onload = function(){
+window.onload = function () {
     detener.style.display = "none";
 }
 
@@ -35,17 +35,16 @@ function on_start(event) {
     for (i = event.resultIndex; i < event.results.length; i++) {
         text_exercise = event.results[i][0].transcript;
     }
-    if(text_exercise === ''){
-        alert('No grabaste')
+    if (text_exercise === '') {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'No has grabado nada',
         })
-    }else{
+    } else {
         processed_text(text_exercise)
     }
-    console.log(event.results)
+
 }
 
 function record_exercise() {
@@ -72,8 +71,10 @@ function stopped() {
     rec.stop()
 }
 
-function processed_text(text_p){
+function processed_text(text_p) {
     //Tratamiento del ejercicio
+    var token = $("[name='csrfmiddlewaretoken']").attr("value");
+    var idexer = exercise.pk
     let loqs = false
     let number;
     let sub_text;
@@ -86,40 +87,73 @@ function processed_text(text_p){
     let text_p_list = text_p.split(' ')
 
     text_p_list.forEach((element, index) => {
-        if(index === 0){
-            sub_text = screen_text_list.slice(index, (index+2))
-        }else if(index === (screen_text_list.length-1)){
-            sub_text = screen_text_list.slice((index-1), index+1)
-        }else{
-            sub_text = screen_text_list.slice((index-1), (index+2))
+        if (index === 0) {
+            sub_text = screen_text_list.slice(index, (index + 2))
+        } else if (index === (screen_text_list.length - 1)) {
+            sub_text = screen_text_list.slice((index - 1), index + 1)
+        } else {
+            sub_text = screen_text_list.slice((index - 1), (index + 2))
         }
-        if (sub_text.includes(element)){
+        if (sub_text.includes(element)) {
             cont++;
         }
     });
 
-    number = Math.round((cont/screen_text_list.length)*100)
-    let score = (cont/screen_text_list.length)*exercise.fields.punctuation
-
-    if (numer <= 50){
-        score = 0
-    }
-
+    number = Math.round((cont / screen_text_list.length) * 100)
+    let score = (cont / screen_text_list.length) * exercise.fields.punctuation
     
     //Resultados del ejercicio
-    Swal.fire({
-        title: '<strong>Tu resultado: </strong>',
-        icon: number>50 ? 'success':'error',
-        html:
-          `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
-          `Ganaste: ${score.toFixed(2)}`,
-        focusConfirm: false,
-        confirmButtonText:
-            number>50 ?
-          '<i class="fa fa-thumbs-up"></i> Okey!'
-          :
-          '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        
-    })
+    if (number <= 50) {
+        score = 0
+        Swal.fire({
+            title: '<strong>Tu resultado: </strong>',
+            icon: 'error',
+            html:
+                `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
+                `Ganaste: ${score.toFixed(2)}`,
+            focusConfirm: false,
+            confirmButtonText: 
+                '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            
+        })
+    }else{
+
+        Swal.fire({
+            title: '<strong>Tu resultado: </strong>',
+            icon: 'success',
+            html:
+                `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
+                `Ganaste: ${score.toFixed(2)}`,
+            focusConfirm: false,
+            confirmButtonText:
+                '<i class="fa fa-thumbs-up"></i> Okey!',
+            confirmButtonAriaLabel: 'Thumbs up, great!',
+            preConfirm: () => {
+                return fetch(`/polls/save/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': token,
+                    },
+                    body: JSON.stringify({
+                        iduser: iduser,
+                        idexer: idexer,
+                        score: score,
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.log('Todo salió mal...')
+                        }
+                        console.log(response)
+                        return response
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            `Request failed: ${error}`
+                        )
+                    })
+            }
+        })
+    } 
 }

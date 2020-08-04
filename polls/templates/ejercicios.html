@@ -56,7 +56,9 @@
                 <h4 id='exe' class="d-flex justify-content-center" style="background-color: #ffffff; padding: 1em; 
                         border-radius: 10px; font-style: italic; text-align: center; color: navy;"></h4>
             </div>
-            
+            <form>
+                {% csrf_token %}
+            </form>
         </div>
         <div class="col-2 ">
             <div id="grabar" class="row justify-content-center">
@@ -77,6 +79,7 @@
 </div>
 <script >
     var json_exe = '{{ json_exercise }}'
+    var iduser = '{{ user.id }}'
 </script>
 <script src="{% static 'js/exercise_management.js' %}"></script>
 

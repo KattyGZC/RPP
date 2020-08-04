@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth import login as do_login
 from django.core import serializers
 from .models import  Profile, Level, Exercise, Score
@@ -33,6 +34,7 @@ def register(request):
     })
 
 def edit_profile(request):
+    print(request)
     if request.method == 'POST':
         form = UEditF(request.POST, instance=request.user)
         extended_profile_form = ProfileForm(request.POST, request.FILES,
@@ -67,3 +69,7 @@ def exercises(request):
         'json_exercise': exercise_json
     }
     return render(request, 'ejercicios.html', context)
+
+def save_exercise(request):
+    print(request.POST)
+    return HttpResponse('Respuesta')

@@ -9,5 +9,6 @@ urlpatterns = [
     path('edit/', login_required(views.edit_profile), name='edit_profile'),
     path('perfil/', login_required(views.perfil), name='perfil'),
     path('niveles/', login_required(views.choice_level), name='niveles'),
-    path('ejercicios/', login_required(views.exercises), name='ejercicios')
+    path('ejercicios/', login_required(views.exercises), name='ejercicios'),
+    path('save/', login_required(views.save_exercise))
 ]
