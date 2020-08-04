@@ -3,7 +3,6 @@ from .models import Profile, User, Level, Exercise, Score
 
 
 admin.site.register(Level)
-admin.site.register(Score)
 
 class ProfileAdmin(admin.ModelAdmin):
 
@@ -13,5 +12,9 @@ class ExerciseAdmin(admin.ModelAdmin):
     
     list_display = ('text', 'punctuation', 'idLevel')
 
+class ScoreAdmin(admin.ModelAdmin):
+    list_display = ('value', 'idUser')
+
 admin.site.register(Exercise, ExerciseAdmin)
 admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Score, ScoreAdmin)

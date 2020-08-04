@@ -13,7 +13,6 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-
 class Level(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
@@ -31,5 +30,4 @@ class Score(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idExercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     value = models.FloatField()
-    def __str__(self):
-        return self.value
+

@@ -29,6 +29,7 @@
         transform: scale(0.9);
         background-color: #cbd2db;
     }
+
 </style>
 <div class="container-fluid">
     <div class="row ">
@@ -55,17 +56,14 @@
                 <h4 id='exe' class="d-flex justify-content-center" style="background-color: #ffffff; padding: 1em; 
                         border-radius: 10px; font-style: italic; text-align: center; color: navy;"></h4>
             </div>
-            <div class="row d-flex justify-content-center">
-                <h4 id="texto" class="d-flex justify-content-center" style="background-color: #ffffff; padding: 1em; 
-                        border-radius: 10px; font-style: italic; text-align: center; color: navy;"></h4>
-            </div>
+            
         </div>
         <div class="col-2 ">
-            <div class="row d-flex justify-content-center">
+            <div id="grabar" class="row justify-content-center">
                 <input type="image" src="{% static 'images/grabar.svg' %}" alt="Grabar" onclick="record_exercise()" 
                 class="button_actions" title="Grabar">
             </div>
-            <div class="row d-flex justify-content-center">
+            <div id="detener" class="row justify-content-center">
                 <input type="image" src="{% static 'images/stop.svg' %}" alt="Detener" onclick="stopped()" 
                 class="button_actions" title="Detener">
             </div>
@@ -77,51 +75,9 @@
     </div>
 
 </div>
-
-<script>
+<script >
     var json_exe = '{{ json_exercise }}'
-    const regex = /&quot;/gi
-    json_exe = json_exe.replace(regex, '"')
-    json_exe = JSON.parse(json_exe)
-    console.log(json_exe)
-    var exe = document.getElementById('exe');
-    json_exe = json_exe.sort(() => { return Math.random() - 0.5 })
-    show_exercise()
-    function show_exercise() {
-        if (json_exe.length > 0) {
-            exercise = json_exe.pop()
-            console.log(exercise)
-            exe.innerHTML = exercise.fields.text;
-        } else {
-            alert('Se terminaron los ejercicios')
-        }
-    }
 </script>
+<script src="{% static 'js/exercise_management.js' %}"></script>
 
-<script>    
-    let rec;
-    var text='';
-    function on_start(event){
-        for(i = event.resultIndex; i < event.results.length; i++){
-            document.getElementById('texto').innerHTML = event.results[i][0].transcript;
-            text = event.results[i][0].transcript;
-            console.log(text)
-        }
-    }   
-    function record_exercise(){
-        if (!("webkitSpeechRecognition" in window)){
-            alert('Disculpa, tenemos problemas')
-        }else{
-            rec = new webkitSpeechRecognition();
-            rec.lang = "es-EC"
-            rec.continuous = true
-            rec.interim = true
-            rec.addEventListener("result", on_start)
-        }
-        rec.start()
-    }
-    function stopped(){
-        rec.stop()
-    }
-</script>
 {% endblock %}
