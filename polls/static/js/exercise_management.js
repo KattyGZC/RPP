@@ -75,7 +75,6 @@ function processed_text(text_p) {
     //Tratamiento del ejercicio
     var token = $("[name='csrfmiddlewaretoken']").attr("value");
     var idexer = exercise.pk
-    let loqs = false
     let number;
     let sub_text;
     let cont = 0;
@@ -85,6 +84,7 @@ function processed_text(text_p) {
     let screen_text_list = screen_text.split(' ')
     text_p = text_p.toLowerCase()
     let text_p_list = text_p.split(' ')
+    console.log(idexer)
 
     text_p_list.forEach((element, index) => {
         if (index === 0) {

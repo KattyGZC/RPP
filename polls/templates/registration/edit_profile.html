@@ -9,18 +9,19 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <h1
-            style="padding-top: 0.5em; font-size: 4em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+            style="padding-top: 0.5em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            text-align: center;">
             Editar el perfil del usuario {{ user.username }}</h1>
         <div class="container" >
-            <div class="row justify-content-center">
-                <div class="col-6" style="background-color: #ffffff; padding: 2em; border-radius: 5%;">
+            <div class="row justify-content-center" style="margin-right: 0em; margin-left: 0em;">
+                <div class="col col-sm-8 col-lg-6 " style="background-color: #ffffff; padding: 2em; border-radius: 20px; margin-bottom: 2em;">
                     <form method="POST" enctype="multipart/form-data" action="" novalidate>
                         {% csrf_token %}
                         {{ form|crispy}}
                         {{ extended_profile_form|crispy}}
                         
                         <div class="text-center">
-                            <button class="btn btn-lg btn-primary text-center" type="submit">Actualizar Perfil</button>
+                            <button class="btn btn-lg btn-primary text-center" type="submit" style="margin: 0.5em">Actualizar Perfil</button>
                             <a href="{% url 'perfil' %}">
                                 <button class="btn btn-lg btn-primary text-center" >Cancelar</button>
                             </a>

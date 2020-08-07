@@ -36,23 +36,24 @@
                 Escoge un nivel:
             </h1>
         </div>
-        <div class="row">
+        <div class="row" style="margin-left: 0em; margin-right: 0em;">
             <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}
                 <input type="hidden" name="level" value="1">
                 <input type="image" src="{% static 'images/nivel_basico.png' %}" alt="basico"
-                    class="levels_img"></input>
+                    class="levels_img" width="100%"></input>
             </form>
             <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}
                 <input type="hidden" name="level" value="2">
                 <input type="image" src="{% static 'images/nivel_intermedio1.png' %}" alt="intermedio"
-                    class="levels_img">
+                    class="levels_img"  width="100%">
             </form>
             <form method='POST' action="{% url 'ejercicios' %}" class="col-md-4 col-xs-12">
                 {% csrf_token %}
                 <input type="hidden" name="level" value="3">
-                <input type="image" src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" class="levels_img">
+                <input type="image" src="{% static 'images/nivel_avanzado.png' %}" alt="avanzado" 
+                class="levels_img"  width="100%">
             </form>
         </div>
     </div>
