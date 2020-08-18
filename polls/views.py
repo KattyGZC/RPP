@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login as do_login
 from django.core import serializers
 from .models import  Profile, Level, Exercise, Score
-from .forms import UCFWithOthers, UEditF, ProfileForm
+from .forms import UCFWithOthers, UEditF, ProfileForm, ScoreForm
 
 def error_404_view(request):
     return render(request, '404.html')
@@ -34,7 +34,6 @@ def register(request):
     })
 
 def edit_profile(request):
-    print(request)
     if request.method == 'POST':
         form = UEditF(request.POST, instance=request.user)
         extended_profile_form = ProfileForm(request.POST, request.FILES,
@@ -64,12 +63,22 @@ def exercises(request):
                 level = value
     obj_exercise = Exercise.objects.filter(idLevel=level)
     exercise_json = serializers.serialize('json', obj_exercise)
+    form = ScoreForm()
     context = {
         'level': level,
-        'json_exercise': exercise_json
+        'json_exercise': exercise_json,
+        'form': form
     }
     return render(request, 'ejercicios.html', context)
 
 def save_exercise(request):
-    print(request.POST)
+    if request.method == 'POST' and request.is_ajax:
+        form_score = ScoreForm(request.POST, instance=request.user)
+        if form_score.is_valid():
+            print(request.POST.get('value'))
+            print(request.POST.get('idUser'))
+            print(request.POST.get('idExercise'))
+            form_score.save()
+        else:
+            print('Tenemos un error')
     return HttpResponse('Respuesta')

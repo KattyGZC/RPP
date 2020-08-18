@@ -30,4 +30,3 @@ class Score(models.Model):
     idUser = models.ForeignKey(User, on_delete=models.CASCADE)
     idExercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     value = models.FloatField()
-

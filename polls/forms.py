@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from bootstrap_datepicker_plus import DatePickerInput
-from .models import Profile
+from .models import Profile, Score
 
 class UCFWithOthers(UserCreationForm):
 
@@ -13,7 +13,7 @@ class UCFWithOthers(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ["username",'first_name', 'last_name', "password1", "password2"]
+        fields = ["username", 'first_name', 'last_name', "password1", "password2"]
 
 class UEditF(UserChangeForm):
 
@@ -30,7 +30,11 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['birth_date', 'photo']
 
+class ScoreForm(forms.ModelForm):
+    idUser = forms.IntegerField(widget=forms.HiddenInput(), label='idUser')
+    idExercise = forms.IntegerField(widget=forms.HiddenInput(), label='idExercise')
+    value = forms.FloatField(widget=forms.HiddenInput(), label='Value')
 
-
-
-
+    class Meta:
+        model = Score
+        fields = [  'idUser', 'idExercise', 'value']

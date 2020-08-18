@@ -84,7 +84,6 @@ function processed_text(text_p) {
     let screen_text_list = screen_text.split(' ')
     text_p = text_p.toLowerCase()
     let text_p_list = text_p.split(' ')
-    console.log(idexer)
 
     text_p_list.forEach((element, index) => {
         if (index === 0) {
@@ -113,47 +112,36 @@ function processed_text(text_p) {
                 `Ganaste: ${score.toFixed(2)}`,
             focusConfirm: false,
             confirmButtonText: 
-                '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
-            
+                '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!',            
         })
     }else{
+        document.getElementById('id_value').value = score;
+        document.getElementById('id_idExercise').value = idexer
+        document.getElementById('id_idUser').value = iduser
 
+        let data = new FormData($('#scores').get(0));
         Swal.fire({
             title: '<strong>Tu resultado: </strong>',
             icon: 'success',
-            html:
+            html:              
                 `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
                 `Ganaste: ${score.toFixed(2)}`,
             focusConfirm: false,
             confirmButtonText:
                 '<i class="fa fa-thumbs-up"></i> Okey!',
-            confirmButtonAriaLabel: 'Thumbs up, great!',
             preConfirm: () => {
-                return fetch(`/polls/save/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': token,
-                    },
-                    body: JSON.stringify({
-                        iduser: iduser,
-                        idexer: idexer,
-                        score: score,
-                    })
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            console.log('Todo salió mal...')
-                        }
-                        console.log(response)
-                        return response
-                    })
-                    .catch(error => {
-                        Swal.showValidationMessage(
-                            `Request failed: ${error}`
-                        )
-                    })
+                $.ajax({
+                    type: "POST",
+                    url: "/polls/save/",
+                    data: data, 
+                    processData: false,
+                    contentType: false,
+                    success: function(){
+                        console.log('Funciona!')
+                    }
+                 })
             }
         })
+        
     } 
 }
