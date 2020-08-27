@@ -1,9 +1,11 @@
 var grabar = document.getElementById('grabar')
 var detener = document.getElementById('detener')
+var acumulado = document.getElementById('src_acum')
 
 var rec;
 var text_exercise = '';
 
+score_acum = parseFloat(score_acum)
 const regex = /&quot;/gi
 json_exe = json_exe.replace(regex, '"')
 json_exe = JSON.parse(json_exe)
@@ -14,9 +16,11 @@ show_exercise()
 
 window.onload = function () {
     detener.style.display = "none";
+    console.log(score_acum)
 }
 
-function show_exercise() {
+function show_exercise() {   
+    // acumulado.innerHTML = score_acum
     if (json_exe.length > 0) {
         exercise = json_exe.pop()
         console.log(exercise)
@@ -35,17 +39,17 @@ function on_start(event) {
     for (i = event.resultIndex; i < event.results.length; i++) {
         text_exercise = event.results[i][0].transcript;
     }
-    if (text_exercise === '') {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'No has grabado nada',
-        })
-    } else {
-        processed_text(text_exercise)
-    }
-
+    processed_text(text_exercise)
 }
+ function vacio(){
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No has grabado nada',
+        confirmButtonText: 
+            '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!', 
+    })
+ }
 
 function record_exercise() {
     detener.style.display = "flex";
@@ -69,15 +73,18 @@ function stopped() {
     grabar.style.display = "flex";
     detener.style.display = "none";
     rec.stop()
+    if(!(rec.onresult)){
+        vacio()
+    }
 }
 
 function processed_text(text_p) {
     //Tratamiento del ejercicio
-    var token = $("[name='csrfmiddlewaretoken']").attr("value");
     var idexer = exercise.pk
     let number;
     let sub_text;
     let cont = 0;
+    //console.log(text_p)
     screen_text = exercise.fields.text;
     screen_text = screen_text.replace(/[.,:";¿?¡!]/gi, '')
     screen_text = screen_text.toLowerCase()
@@ -100,6 +107,8 @@ function processed_text(text_p) {
 
     number = Math.round((cont / screen_text_list.length) * 100)
     let score = (cont / screen_text_list.length) * exercise.fields.punctuation
+    score_acum += score
+
     
     //Resultados del ejercicio
     if (number <= 50) {
@@ -138,6 +147,8 @@ function processed_text(text_p) {
                     contentType: false,
                     success: function(){
                         console.log('Funciona!')
+                        console.log(score_acum)
+                        show_exercise()
                     }
                  })
             }

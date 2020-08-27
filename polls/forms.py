@@ -37,4 +37,4 @@ class ScoreForm(forms.ModelForm):
 
     class Meta:
         model = Score
-        fields = [  'idUser', 'idExercise', 'value']
+        fields = ['idUser', 'idExercise','value']

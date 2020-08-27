@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import login as do_login
 from django.core import serializers
-from .models import  Profile, Level, Exercise, Score
+from .models import Exercise, Score
 from .forms import UCFWithOthers, UEditF, ProfileForm, ScoreForm
 
 def error_404_view(request):
@@ -62,9 +62,16 @@ def exercises(request):
             if key == 'level':
                 level = value
     obj_exercise = Exercise.objects.filter(idLevel=level)
+    list_scores = []
+    for item in obj_exercise:
+        obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
+        for v in obj_score:
+            list_scores.append(float(v.value))
+    score_acum = sum(list_scores)
     exercise_json = serializers.serialize('json', obj_exercise)
     form = ScoreForm()
     context = {
+        'score_acum': score_acum,
         'level': level,
         'json_exercise': exercise_json,
         'form': form
@@ -72,13 +79,8 @@ def exercises(request):
     return render(request, 'ejercicios.html', context)
 
 def save_exercise(request):
-    if request.method == 'POST' and request.is_ajax:
-        form_score = ScoreForm(request.POST, instance=request.user)
-        if form_score.is_valid():
-            print(request.POST.get('value'))
-            print(request.POST.get('idUser'))
-            print(request.POST.get('idExercise'))
-            form_score.save()
-        else:
-            print('Tenemos un error')
+    if request.method == 'POST' and request.is_ajax():
+        exer = Exercise.objects.get(id=request.POST['idExercise'])
+        scr = Score(idUser=request.user, idExercise=exer, value=request.POST['value'])
+        scr.save()
     return HttpResponse('Respuesta')
