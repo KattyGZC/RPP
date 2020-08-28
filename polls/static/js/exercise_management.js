@@ -9,7 +9,7 @@ score_acum = parseFloat(score_acum)
 const regex = /&quot;/gi
 json_exe = json_exe.replace(regex, '"')
 json_exe = JSON.parse(json_exe)
-console.log(json_exe)
+//console.log(json_exe)
 var exe = document.getElementById('exe');
 json_exe = json_exe.sort(() => { return Math.random() - 0.5 })
 show_exercise()
@@ -20,10 +20,10 @@ window.onload = function () {
 }
 
 function show_exercise() {   
-    // acumulado.innerHTML = score_acum
+    //acumulado.innerHTML = score_acum
     if (json_exe.length > 0) {
         exercise = json_exe.pop()
-        console.log(exercise)
+        //console.log(exercise)
         exe.innerHTML = exercise.fields.text;
     } else {
         //alert('Se terminaron los ejercicios')
@@ -36,12 +36,13 @@ function show_exercise() {
 }
 
 function on_start(event) {
+    //console.log(event)
     for (i = event.resultIndex; i < event.results.length; i++) {
         text_exercise = event.results[i][0].transcript;
     }
     processed_text(text_exercise)
 }
- function vacio(){
+function vacio(){
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -66,6 +67,7 @@ function record_exercise() {
         rec.continuous = true
         rec.interim = true
         rec.addEventListener("result", on_start)
+        rec.addEventListener("error", (e) => console.log(e))
     }
     rec.start()
 }
@@ -73,9 +75,9 @@ function stopped() {
     grabar.style.display = "flex";
     detener.style.display = "none";
     rec.stop()
-    if(!(rec.onresult)){
-        vacio()
-    }
+    // if(!(rec.onresult)){
+    //     vacio()
+    // }
 }
 
 function processed_text(text_p) {

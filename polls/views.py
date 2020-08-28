@@ -12,7 +12,38 @@ def index(request):
     return render(request, 'index.html')
 
 def perfil(request):
-    return render(request, 'perfil.html')
+    # Suma puntajes nivel básico
+    obj_exercise1 = Exercise.objects.filter(idLevel=1)
+    list_scores_1 = []
+    for item in obj_exercise1:
+        obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
+        for v in obj_score:
+            list_scores_1.append(round(float(v.value),2))
+    score_1 = sum(list_scores_1)
+
+    # Suma puntajes nivel intermedio
+    obj_exercise2 = Exercise.objects.filter(idLevel=2)
+    list_scores_2 = []
+    for item in obj_exercise2:
+        obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
+        for v in obj_score:
+            list_scores_2.append(round(float(v.value),2))
+    score_2 = sum(list_scores_2)
+
+    # Suma puntajes nivel avanzado
+    obj_exercise3= Exercise.objects.filter(idLevel=3)
+    list_scores_1 = []
+    for item in obj_exercise3:
+        obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
+        for v in obj_score:
+            list_scores_1.append(round(float(v.value),2))
+    score_3 = sum(list_scores_1)
+    context = {
+        'score_1': score_1,
+        'score_2': score_2,
+        'score_3': score_3,
+    }
+    return render(request, 'perfil.html', context)
 
 def login(request):
     return render(request, 'registration/login.html')
@@ -66,7 +97,7 @@ def exercises(request):
     for item in obj_exercise:
         obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
         for v in obj_score:
-            list_scores.append(float(v.value))
+            list_scores.append(round(float(v.value),2))
     score_acum = sum(list_scores)
     exercise_json = serializers.serialize('json', obj_exercise)
     form = ScoreForm()
@@ -79,8 +110,14 @@ def exercises(request):
     return render(request, 'ejercicios.html', context)
 
 def save_exercise(request):
+    scr = Score.objects.filter(idExercise=request.POST['idExercise'], idUser=request.user)
+    # print(serializers.serialize('json', scr))
+    exer = Exercise.objects.get(id=request.POST['idExercise'])
+    print(exer.idLevel)
     if request.method == 'POST' and request.is_ajax():
-        exer = Exercise.objects.get(id=request.POST['idExercise'])
-        scr = Score(idUser=request.user, idExercise=exer, value=request.POST['value'])
-        scr.save()
+        if scr:
+            scr.update(value=request.POST['value'])
+        else:
+            scr = Score(idUser=request.user, idExercise=exer, value=request.POST['value'])
+            scr.save()
     return HttpResponse('Respuesta')
