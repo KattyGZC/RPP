@@ -1,10 +1,11 @@
 var grabar = document.getElementById('grabar')
 var detener = document.getElementById('detener')
-var acumulado = document.getElementById('src_acum')
+var scracum = window.document.getElementById('scracum')
 
 var rec;
 var text_exercise = '';
-
+console.log(score_acum)
+score_acum = score_acum.replace(",",".")
 score_acum = parseFloat(score_acum)
 const regex = /&quot;/gi
 json_exe = json_exe.replace(regex, '"')
@@ -20,7 +21,6 @@ window.onload = function () {
 }
 
 function show_exercise() {   
-    //acumulado.innerHTML = score_acum
     if (json_exe.length > 0) {
         exercise = json_exe.pop()
         //console.log(exercise)
@@ -33,6 +33,7 @@ function show_exercise() {
             text: 'Se terminaron los ejercicios',
         })
     }
+    scracum.innerHTML = "Tu puntaje <br>" + score_acum.toFixed(2)
 }
 
 function on_start(event) {
@@ -75,9 +76,9 @@ function stopped() {
     grabar.style.display = "flex";
     detener.style.display = "none";
     rec.stop()
-    // if(!(rec.onresult)){
-    //     vacio()
-    // }
+    if(!(rec.onresult)){
+         vacio()
+     }
 }
 
 function processed_text(text_p) {
