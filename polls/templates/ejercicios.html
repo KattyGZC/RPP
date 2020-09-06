@@ -45,6 +45,9 @@
                 {% endif %}
             </h1>
         </div>
+            <button class="shadow gradient estilo-x" style="text-decoration: none; padding: 0em; border-radius: 20px;
+            font-weight: bold; color: midnightblue;" onclick="instructions()">¿Cómo jugar?</button>
+
     </div>
 
     <div class="row">
@@ -91,6 +94,7 @@
     var json_exe = '{{ json_exercise }}'
     var iduser = '{{ user.id }}'
     var score_acum = '{{ score_acum }}'
+    //var total_score = '{{ total_score }}'
 </script>
 <script src="{% static 'js/exercise_management.js' %}"></script>
 {% endblock %}

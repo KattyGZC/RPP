@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import login as do_login
 from django.core import serializers
@@ -92,6 +92,7 @@ def exercises(request):
         for key, value in request.POST.items():
             if key == 'level':
                 level = value
+                print('Esta es la variable level: ', level)
     obj_exercise = Exercise.objects.filter(idLevel=level)
     list_scores = []
     for item in obj_exercise:
@@ -111,13 +112,19 @@ def exercises(request):
 
 def save_exercise(request):
     scr = Score.objects.filter(idExercise=request.POST['idExercise'], idUser=request.user)
-    # print(serializers.serialize('json', scr))
     exer = Exercise.objects.get(id=request.POST['idExercise'])
-    print(exer.idLevel)
+    print(exer.idLevel_id)
     if request.method == 'POST' and request.is_ajax():
         if scr:
             scr.update(value=request.POST['value'])
         else:
             scr = Score(idUser=request.user, idExercise=exer, value=request.POST['value'])
             scr.save()
-    return HttpResponse('Respuesta')
+        obj_exercise = Exercise.objects.filter(idLevel=exer.idLevel_id)
+        list_scores = []
+        for item in obj_exercise:
+            obj_score = Score.objects.filter(idExercise=item.id, idUser=request.user)
+            for v in obj_score:
+                list_scores.append(round(float(v.value), 2))
+        total_score = sum(list_scores)
+    return HttpResponse(total_score, 'application/javascript')
