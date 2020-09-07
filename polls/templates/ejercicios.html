@@ -45,14 +45,14 @@
                 {% endif %}
             </h1>
         </div>
-            <button class="shadow gradient estilo-x" style="text-decoration: none; padding: 0em; border-radius: 20px;
-            font-weight: bold; color: midnightblue;" onclick="instructions()">¿Cómo jugar?</button>
-
+        <button type="button" class="btn btn-light shadow" style="height: 3.5em; padding: 1em; border-radius: 20px;
+        font-weight: bold; font-size: 1.5em; margin: 1.5em;" onclick="instructions()">¿Cómo jugar?</button>
     </div>
 
     <div class="row">
         <div class="col-12">
-            <div class="row d-flex justify-content-center" style="margin-left: auto; margin-right: auto; max-width: 700px;">
+            <div class="row d-flex justify-content-center"
+                style="margin-left: auto; margin-right: auto; max-width: 700px;">
                 <h4 id="scracum" class="d-flex justify-content-center" style="background-color: #ffffff; padding: 1em; 
                 border-radius: 50%; font-style: italic; text-align: center; color: navy;"></h4>
             </div>
@@ -77,7 +77,7 @@
                         class="button_actions" title="Grabar">
                 </div>
                 <div id="detener" class="justify-content-center" style="margin: 1em;">
-                    
+
                     <input type="image" src="{% static 'images/stop.svg' %}" alt="Detener" onclick="stopped()"
                         class="button_actions" title="Detener">
                 </div>
@@ -90,6 +90,10 @@
     </div>
 
 </div>
+<footer style="color: #ffffff;">
+    Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> from <a
+        href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a>
+</footer>
 <script>
     var json_exe = '{{ json_exercise }}'
     var iduser = '{{ user.id }}'

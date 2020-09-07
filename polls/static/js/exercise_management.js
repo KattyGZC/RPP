@@ -146,11 +146,9 @@ function processed_text(text_p) {
 
 function instructions() {
     Swal.fire({
-        title: 'Sweet!',
-        text: 'Modal with a custom image.',
-        imageUrl: 'https://unsplash.it/400/200',
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
+        html: 
+        `<div style="overflow-y: auto; max-height: 375px;">` + 
+        `<img src="/static/images/rpp_logo_normal.png" class="rounded mx-auto d-block" alt="intrucciones" width=400>`+
+        `</div>`
     })
 }
