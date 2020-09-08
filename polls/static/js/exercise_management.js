@@ -146,9 +146,10 @@ function processed_text(text_p) {
 
 function instructions() {
     Swal.fire({
-        html: 
-        `<div style="overflow-y: auto; max-height: 375px;">` + 
-        `<img src="/static/images/rpp_logo_normal.png" class="rounded mx-auto d-block" alt="intrucciones" width=400>`+
-        `</div>`
+        imageUrl: "/static/images/instructions.png",
+        imageHeight: 400,
+        showCloseButton: true,
+        focusCancel: false,
+        showConfirmButton: false
     })
 }
