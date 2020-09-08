@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField('Fecha de nacimiento', default=date.today)
     photo = models.ImageField('Foto de perfil', upload_to='media/',
-                              max_length=200, default='media/default.png')
+                              max_length=200, default='polls/static/images/default.png')
 
     def __str__(self):
         return str(self.user)
