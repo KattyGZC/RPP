@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField('Fecha de nacimiento', default=date.today)
     photo = models.ImageField('Foto de perfil', upload_to='media/',
-                              max_length=200, default='default.png')
+                              max_length=200, default='https://res.cloudinary.com/heiw2fkmb/image/upload/v1600548520/media/default_lm15c5.png')
 
     def __str__(self):
         return str(self.user)
