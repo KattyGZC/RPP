@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '+giixp=c135(bog#rq@5+7ms%9-6tz
 DEBUG = False
 # DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = ['readpraxisproject.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['https://readpraxisproject.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
