@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField('Fecha de nacimiento', default=date.today)
     photo = models.ImageField('Foto de perfil', upload_to='media/',
-                              max_length=200, default='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRC6iPDSqcgCcAtdEz_rPY0B-sxqMd7hz0Hlg&usqp=CAU')
+                              max_length=200, default='default.png')
 
     def __str__(self):
         return str(self.user)
