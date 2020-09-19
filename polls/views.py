@@ -42,7 +42,10 @@ def register(request):
     else:
         form = UCFWithOthers()
     form.fields['username'].help_text = None
-    form.fields['password1'].help_text = None
+    form.fields['password1'].help_text = """• Su contraseña no puede tener parecido con el resto de su información personal.\n
+                                            • Su contraseña debe contener al menos 8 caracteres.\n
+                                            • Su contraseña no puede ser completamente numérica."""
+    form.fields['password2'].help_text = 'Para verificar introduzca la misma contraseña que colocó en el campo anterior.'
     return render(request, 'registration/register.html', {
         'form':form
     })
@@ -90,7 +93,6 @@ def exercises(request):
 def save_exercise(request):
     scr = Score.objects.filter(idExercise=request.POST['idExercise'], idUser=request.user)
     exer = Exercise.objects.get(id=request.POST['idExercise'])
-    print(exer.idLevel_id)
     if request.method == 'POST' and request.is_ajax():
         if scr:
             scr.update(value=request.POST['value'])
@@ -101,12 +103,12 @@ def save_exercise(request):
     return HttpResponse(total_score, 'application/javascript')
 
 def scores_list(level, id_user):
-    obj_exercise1 = Exercise.objects.filter(idLevel=level)
-    list_scores_1 = []
-    for item in obj_exercise1:
+    obj_exercise = Exercise.objects.filter(idLevel=level)
+    list_scores = []
+    for item in obj_exercise:
         obj_score = Score.objects.filter(idExercise=item.id, idUser=id_user)
         for v in obj_score:
-            list_scores_1.append(round(float(v.value), 2))
-    sum_scores = sum(list_scores_1)
+            list_scores.append(round(float(v.value), 2))
+    sum_scores = sum(list_scores)
     return sum_scores
     

@@ -31,7 +31,11 @@ function show_exercise(acumulado) {
             text: 'Se terminaron los ejercicios',
         })
     }
-    scracum.innerHTML = "Tu puntaje <br>" + acumulado
+    if (acumulado == null) {
+        scracum.innerHTML = "Tu puntaje <br>" + score_acum.toFixed(2)
+    } else {
+        scracum.innerHTML = "Tu puntaje <br>" + acumulado
+    }
 }
 
 function on_start(event) {
@@ -61,14 +65,15 @@ function record_exercise() {
     }
     rec.start()
 }
+
 function stopped() {
     grabar.style.display = "flex";
     detener.style.display = "none";
     rec.stop()
 }
 
+//Tratamiento del ejercicio
 function processed_text(text_p) {
-    //Tratamiento del ejercicio
     var idexer = exercise.pk
     let number;
     let sub_text;
@@ -114,7 +119,7 @@ function processed_text(text_p) {
         document.getElementById('id_value').value = score;
         document.getElementById('id_idExercise').value = idexer
         document.getElementById('id_idUser').value = iduser
-
+        score_acum += score
         let data = new FormData($('#scores').get(0));
         Swal.fire({
             title: '<strong>Tu resultado: </strong>',
@@ -134,7 +139,6 @@ function processed_text(text_p) {
                     contentType: false,
                     success: function (total_score) {
                         console.log('Funciona!')
-                        console.log(total_score)
                         show_exercise(total_score)
                     },
                 })
