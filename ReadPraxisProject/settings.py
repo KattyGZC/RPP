@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '+giixp=c135(bog#rq@5+7ms%9-6tzgr19(=y1y$y-svy(4mlr')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+# DEBUG = True
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
 ALLOWED_HOSTS = ['https://readpraxisproject.herokuapp.com/', '127.0.0.1']
 
