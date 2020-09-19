@@ -43,7 +43,15 @@ INSTALLED_APPS = [
     "bootstrap4",
     'crispy_forms',
     'bootstrap_datepicker_plus',
+    'cloudinary_storage',
+    'cloudinary',
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'heiw2fkmb',
+    'API_KEY': '318344938538631',
+    'API_SECRET': 's8eEoePLpzwX9LDELtczbOTm1EY'
+}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -129,6 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE='cloudinary_storage.storage.MediaCloudinaryStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
