@@ -3,6 +3,7 @@ var detener = document.getElementById('detener')
 var scracum = window.document.getElementById('scracum')
 
 var rec;
+var exercise;
 var text_exercise = '';
 var score_acum = score_acum.replace(",", ".")
 score_acum = parseFloat(score_acum)
@@ -20,7 +21,7 @@ window.onload = function () {
 
 function show_exercise(acumulado) {
     if (json_exe.length > 0) {
-        var exercise = json_exe.pop()
+        exercise = json_exe.pop()
         //console.log(exercise)
         exe.innerHTML = exercise.fields.text;
     } else {
