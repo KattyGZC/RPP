@@ -4,10 +4,10 @@ var scracum = window.document.getElementById('scracum')
 
 var rec;
 var text_exercise = '';
-score_acum = score_acum.replace(",", ".")
+var score_acum = score_acum.replace(",", ".")
 score_acum = parseFloat(score_acum)
 const regex = /&quot;/gi
-json_exe = json_exe.replace(regex, '"')
+var json_exe = json_exe.replace(regex, '"')
 json_exe = JSON.parse(json_exe)
 //console.log(json_exe)
 var exe = document.getElementById('exe');
@@ -20,7 +20,7 @@ window.onload = function () {
 
 function show_exercise(acumulado) {
     if (json_exe.length > 0) {
-        exercise = json_exe.pop()
+        var exercise = json_exe.pop()
         //console.log(exercise)
         exe.innerHTML = exercise.fields.text;
     } else {
@@ -40,7 +40,7 @@ function show_exercise(acumulado) {
 
 function on_start(event) {
     //console.log(event)
-    for (i = event.resultIndex; i < event.results.length; i++) {
+    for (var i = event.resultIndex; i < event.results.length; i++) {
         text_exercise = event.results[i][0].transcript;
     }
     processed_text(text_exercise)
@@ -61,7 +61,7 @@ function record_exercise() {
         rec.continuous = true
         rec.interim = true
         rec.addEventListener("result", on_start)
-        rec.addEventListener("error", (e) => console.log(e))
+        
     }
     rec.start()
 }
@@ -79,7 +79,7 @@ function processed_text(text_p) {
     let sub_text;
     let cont = 0;
     //console.log(text_p)
-    screen_text = exercise.fields.text;
+    var screen_text = exercise.fields.text;
     screen_text = screen_text.replace(/[.,:";¿?¡!]/gi, '')
     screen_text = screen_text.toLowerCase()
     let screen_text_list = screen_text.split(' ')
