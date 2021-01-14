@@ -3,12 +3,12 @@
 {% load crispy_forms_tags %}
 {% load bootstrap4 %}
 {% bootstrap_css %}
+{% load static %}
 <!--  -->
 {{ extended_profile_form.media }}
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <h1 style="padding-top: 0.5em; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            text-align: center;">
+        <h1 style="padding-top: 0.5em; text-align: center;">
             Editar el perfil del usuario {{ user.username }}</h1>
         <div class="container">
             <div class="row justify-content-center" style="margin-right: 0em; margin-left: 0em;">

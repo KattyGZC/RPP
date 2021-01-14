@@ -141,8 +141,9 @@
         <p>Todos los derechos reservados</p>
     </div>
     <div class="row justify-content-center">
-        <p style="font-size: xx-small;">Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> from <a
-            href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a></p>
+        <p style="font-size: xx-small;">Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik"
+                title="Freepik">Freepik</a> from <a href="https://www.flaticon.es/" title="Flaticon">
+                www.flaticon.es</a></p>
     </div>
 </footer>
 <script>
@@ -156,6 +157,9 @@
     exercise_demo = exercise_demo.sort(() => { return Math.random() - 0.5 })
     show_exercise_demo()
 
+    window.onload = function () {
+    detener.style.display = "none";
+}
     function show_exercise_demo() {
         if (exercise_demo.length > 0) {
             exercise = exercise_demo.pop()
@@ -166,7 +170,7 @@
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Se terminaron los ejercicios',
+                text: '¡Se terminaron los ejercicios! Si deseas realizar más y tener un registro de tus puntajes, anímate y regístrate.',
             })
         }
     }
