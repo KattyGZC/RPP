@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import login as do_login
+from django.contrib.auth.models import User
 from django.core import serializers
 from .models import Exercise, Score
 from .forms import UCFWithOthers, UEditF, ProfileForm, ScoreForm
@@ -9,7 +10,55 @@ def error_404_view(request):
     return render(request, '404.html')
 
 def index(request):
-    return render(request, 'index.html')
+    list_user = User.objects.all()
+    list_scores = []
+    list_score_user_level1 = []
+    list_score_user_level2 = []
+    list_score_user_level3 = []
+    for level in range(1, 4):
+        obj_exercise = Exercise.objects.filter(idLevel=level)
+        sum_scores = 0
+        for id_user in list_user:
+            for item in obj_exercise:
+                obj_score = Score.objects.filter(idExercise=item.id, idUser=id_user.id)
+                for v in obj_score:
+                    list_scores.append(round(float(v.value), 2))
+                sum_scores = sum(list_scores)
+            list_scores = []
+            print(level)
+            if level == 1:    
+                list_score_user_level1.append([sum_scores, id_user.username])
+            elif level == 2:
+                list_score_user_level2.append([sum_scores, id_user.username])
+            else:
+                list_score_user_level3.append([sum_scores, id_user.username])
+            sum_scores = 0
+    list_score_user_level1 = sorted(list_score_user_level1, reverse=True)
+    list_score_user_level2 = sorted(list_score_user_level2, reverse=True)
+    list_score_user_level3 = sorted(list_score_user_level3, reverse=True)
+    level1 = list_score_user_level1[:5]
+    level2 = list_score_user_level2[:5]
+    level3 = list_score_user_level3[:5]
+
+    cont = 1
+    for l in level1:
+        l.append(cont)
+        cont+=1
+    cont = 1
+    for l in level2:
+        l.append(cont)
+        cont+=1
+    cont = 1
+    for l in level3:
+        l.append(cont)
+        cont+=1
+        
+    context= {
+        'list_score_user_level1': level1,
+        'list_score_user_level2': level2,
+        'list_score_user_level3': level3,
+    }
+    return render(request, 'index.html', context)
 
 def perfil(request):
     # Suma puntajes nivel básico
@@ -74,21 +123,25 @@ def choice_level(request):
     return render(request, 'niveles.html')
 
 def exercises(request):
+    level = None
     if request.method == "POST":
         for key, value in request.POST.items():
             if key == 'level':
                 level = value
-    obj_exercise = Exercise.objects.filter(idLevel=level)
-    score_acum = scores_list(level, request.user)
-    exercise_json = serializers.serialize('json', obj_exercise)
-    form = ScoreForm()
-    context = {
-        'score_acum': score_acum,
-        'level': level,
-        'json_exercise': exercise_json,
-        'form': form
-    }
-    return render(request, 'ejercicios.html', context)
+    if level:       
+        obj_exercise = Exercise.objects.filter(idLevel=level)
+        score_acum = scores_list(level, request.user)
+        exercise_json = serializers.serialize('json', obj_exercise)
+        form = ScoreForm()
+        context = {
+            'score_acum': score_acum,
+            'level': level,
+            'json_exercise': exercise_json,
+            'form': form
+        }
+        return render(request, 'ejercicios.html', context)
+    else:
+        return redirect('/')
 
 def save_exercise(request):
     scr = Score.objects.filter(idExercise=request.POST['idExercise'], idUser=request.user)

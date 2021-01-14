@@ -17,61 +17,245 @@
     <!-- Bootstrap core CSS -->
     <link href="{% static 'assets/dist/css/bootstrap.css' %}" rel="stylesheet">
 
-    <style>
-        body {
-            background: url("{% static 'images/background.png' %}") no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
+<style>
+    body {
+        margin: 1em !important;
+        background: url("{% static 'images/background.png' %}") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+    .button_actions {
+        margin-bottom: 0.5em;
+        width: 6em;
+        height: 6em;
+        padding: 0.5em;
+        background-color: azure;
+        border-radius: 20px;
+        -webkit-transition: all 0.7s ease;
+        -moz-transition: all 0.7s ease;
+        -o-transition: all 0.7s ease;
+        -ms-transition: all 0.7s ease;
+
+        -webkit-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+        box-shadow: 7px 6px 40px -20px rgba(0, 0, 0, 0.75);
+    }
+</style>
 
 <body>
-    <div class="container">
+    <div class="container-fluid" style="background-color: rgba(255, 255, 255, 0.5); ">
         <div class="row justify-content-center">
-            <div class="col col-sm-8 col-lg-6" style="background-color: #ffffff; padding: 2em; border-radius: 20px;
-            margin: 1.5em;">
-                <form method="POST" action="" novalidate>
-                    <div class="text-center">
-                        <img class="mb-4 " src="{% static 'images/rpp_logo_normal.png' %}" alt="RPP" width="150">
-                        <h1 class="h3 mb-3 font-weight-normal">Por favor ingresa</h1>
+            <div class="col-md-9 col-xs-12">
+                <div class="row justify-content-center mx-auto">
+                    <div class="col-md-3 col-xs-12">
+                        <img class="mb-4 " src="{% static 'images/rpp_logo_normal.png' %}" alt="RPP" width="100%"
+                            style="padding-top: 1em;">
                     </div>
-                    {% csrf_token %}
-                    {{ form|crispy}}
-                    <div class="text-center">
-                        <label>
-                            ¿Olvidaste tu contraseña? Comunícate con el <a href="mailto:kattyko.gzc@gmail.com?Subject=Recuperacion%20de%20contraseña">
-                                Administrador</a>
-                        </label><br>
-                        <label>
-                            ¿Eres nuevo? <a href="{% url 'register' %}">Reg&iacute;strate</a>
-                        </label><br>
-                        <button class="btn btn-lg btn-primary text-center" type="submit">Ingresar</button>
-                        <p class="mt-5 mb-3 text-muted">&copy; Read Praxis Project</p>
+                    <p class="col-md-9 col-xs-12 shadow"
+                        style="background-color: rgba(255, 255, 255, 0.7); padding: 0.5em; margin-top: 1em; border-radius: 10px">
+                        <strong>Read
+                            Praxis</strong> es un aplicativo web que nace con el deseo de que los niños que estan en la
+                        etapa de
+                        desarrollar su
+                        lectura practiquen su pronunciación mediante un pequeño juego interactivo, este consiste en
+                        grabar la voz mientras se lee el texto en pantalla, para así al presionar el botón Detener
+                        devuelva un
+                        puntaje, este puntaje será dado de acuerdo al nivel de similitud entre el texto que se muestra y
+                        el pronunciado por el niño. <br>
+                        <strong>Nota:</strong> Actualmente el aplicativo solo funciona de manera correcta en navegadores
+                        Chrome 33 o superiores.
+                    </p>
+                </div>
+                <div class="row justify-content-center">
+                    <span style="font-size: 4em; text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+                        color: white;">¡PRUÉBALO!</span>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="shadow"
+                        style="background-color: blanchedalmond; margin: 1em; padding: 1em; border-radius: 10px">
+                        <div class="row justify-content-center" style="margin: 0.5em;">
+                            <h4 id='exe_demo' style="text-align: center;">
+                            </h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div id="grabar_demo" class="justify-content-center" style="margin: 1em;">
+                                <input type="image" src="{% static 'images/grabar.svg' %}" alt="Grabar"
+                                    onclick="record_exercise_demo()" class="button_actions" title="Grabar">
+                            </div>
+                            <div id="detener_demo" class="justify-content-center" style="margin: 1em;">
+
+                                <input type="image" src="{% static 'images/stop.svg' %}" alt="Detener"
+                                    onclick="stopped_demo()" class="button_actions" title="Detener">
+                            </div>
+                            <div class="justify-content-center" style="margin: 1em;">
+                                <input type="image" src="{% static 'images/next.svg' %}" alt="Siguiente"
+                                    onclick="show_exercise_demo()" class="button_actions" title="Siguiente">
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
+            <div class="col-md-3 col-xs-12 ">
+                <div class="row">
+                    <div class="shadow card" style="background-color: #ffffff; padding: 2em; border-radius: 20px;
+                    margin: 1.5em;">
+                        <form method="POST" action="" novalidate class="my-font">
+                            <div class="text-center">
+                                <h6 class="mb-3 font-weight-normal">Por favor ingresa</h6>
+                            </div>
+                            {% csrf_token %}
+                            {{ form|crispy}}
+                            <div class="text-center">
+                                <label class="my-font">
+                                    ¿Olvidaste tu contraseña? Comunícate con el <a
+                                        href="mailto:kattyko.gzc@gmail.com?Subject=Recuperacion%20de%20contraseña">
+                                        Administrador</a>
+                                </label><br>
+                                <label class="my-font">
+                                    ¿Eres nuevo? <a href="{% url 'register' %}">Reg&iacute;strate</a>
+                                </label><br>
+                                <button class="btn btn-sm btn-primary text-center" type="submit">Ingresar</button>
+                                <p class="text-muted" style="padding-top: 1em;">&copy; Read Praxis Project</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>
+<footer class="bd-footer bg-light my-font">
+    <div class="row justify-content-center" style="overflow-wrap: anywhere;">
+        <p>&copy; Read Praxis Project by Katherine Zambrano</p>
+    </div>
+    <div class="row justify-content-center">
+        <p>Todos los derechos reservados</p>
+    </div>
+    <div class="row justify-content-center">
+        <p style="font-size: xx-small;">Iconos diseñados por <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> from <a
+            href="https://www.flaticon.es/" title="Flaticon"> www.flaticon.es</a></p>
+    </div>
+</footer>
+<script>
+    var grabar = document.getElementById('grabar_demo')
+    var detener = document.getElementById('detener_demo')
+
+    var text_exercise = '';
+    var exercise;
+    var exercise_demo = ['Mira al cielo, el sol brilla.', 'El pato patote, come tomate.', 'Las estrellas son pequeños soles.']
+    var exe = document.getElementById('exe_demo');
+    exercise_demo = exercise_demo.sort(() => { return Math.random() - 0.5 })
+    show_exercise_demo()
+
+    function show_exercise_demo() {
+        if (exercise_demo.length > 0) {
+            exercise = exercise_demo.pop()
+            //console.log(exercise)
+            exe.innerHTML = exercise;
+        } else {
+            //alert('Se terminaron los ejercicios')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Se terminaron los ejercicios',
+            })
+        }
+    }
+    function on_start(event) {
+        //console.log(event)
+        for (var i = event.resultIndex; i < event.results.length; i++) {
+            text_exercise = event.results[i][0].transcript;
+        }
+        processed_text(text_exercise)
+    }
+    function record_exercise_demo() {
+        detener.style.display = "flex";
+        grabar.style.display = "none";
+        if (!("webkitSpeechRecognition" in window)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Tu navegador no tiene acceso al reconocimiento de voz',
+            })
+        } else {
+            rec = new webkitSpeechRecognition();
+            rec.lang = "es-EC"
+            rec.continuous = true
+            rec.interim = true
+            rec.addEventListener("result", on_start)
+
+        }
+        rec.start()
+    }
+    function processed_text(text_p) {
+        let number;
+        let sub_text;
+        let cont = 0;
+        //console.log(text_p)
+        var screen_text = exercise;
+        screen_text = screen_text.replace(/[.,:";¿?¡!]/gi, '')
+        screen_text = screen_text.toLowerCase()
+        let screen_text_list = screen_text.split(' ')
+        text_p = text_p.toLowerCase()
+        let text_p_list = text_p.split(' ')
+
+        text_p_list.forEach((element, index) => {
+            if (index === 0) {
+                sub_text = screen_text_list.slice(index, (index + 2))
+            } else if (index === (screen_text_list.length - 1)) {
+                sub_text = screen_text_list.slice((index - 1), index + 1)
+            } else {
+                sub_text = screen_text_list.slice((index - 1), (index + 2))
+            }
+            if (sub_text.includes(element)) {
+                cont++;
+            }
+        });
+
+        number = Math.round((cont / screen_text_list.length) * 100)
+        let score = (cont / screen_text_list.length) * 1.5
+
+        //Resultados del ejercicio
+        if (number <= 50) {
+            score = 0
+            Swal.fire({
+                title: '<strong>Tu resultado: </strong>',
+                icon: 'error',
+                html:
+                    `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
+                    `Ganaste: ${score.toFixed(2)}`,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Inténtalo de nuevo!',
+            })
+        } else {
+            Swal.fire({
+                title: '<strong>Tu resultado: </strong>',
+                icon: 'success',
+                html:
+                    `<div class="progress"  style="height: 30px;"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${number}%">${number}%</div></div>` +
+                    `Ganaste: ${score.toFixed(2)}`,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Okey!',
+
+            })
+        }
+    }
+    function stopped_demo() {
+        grabar.style.display = "flex";
+        detener.style.display = "none";
+        rec.stop()
+    }
+</script>
 
 </html>

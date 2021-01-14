@@ -2,61 +2,152 @@
 {% block content %}
 {% load static %}
 <style>
-    .shadow {
-        -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
-        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
-    }
+  .shadow {
+    -webkit-box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .19) !important;
+  }
 
-    .gradient {
-        -webkit-transition: all 0.7s ease;
-        -moz-transition: all 0.7s ease;
-        -o-transition: all 0.7s ease;
-        -ms-transition: all 0.7s ease;
-        background-image: linear-gradient(to top, #01339c, #0057b8, #0078cd, #0098dc, #00b7e7, #00b7e7, #00b7e7, #00b7e7, #0098dc, #0078cd, #0057b8, #01339c);
-    }
+  .gradient {
+    -webkit-transition: all 0.7s ease;
+    -moz-transition: all 0.7s ease;
+    -o-transition: all 0.7s ease;
+    -ms-transition: all 0.7s ease;
+    background-image: linear-gradient(to top, #01339c, #0057b8, #0078cd, #0098dc, #00b7e7, #00b7e7, #00b7e7, #00b7e7, #0098dc, #0078cd, #0057b8, #01339c);
+  }
 
-    .gradient:hover {
-        transform: scale(0.9);
-        cursor: pointer;
-    }
+  .gradient:hover {
+    transform: scale(0.9);
+    cursor: pointer;
+  }
 </style>
-
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-10 col-md-6"
-            style="background-color: #ffffff; padding-bottom: 1em; margin-top: 1em; margin-bottom: 2em; border-radius: 20px;">
-            <div class="row justify-content-center">
-                <h1 class="estilo-x"
-                    style="padding: 0em; font-weight: bold;
-                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  <div class="row">
+    <div class="col-md-6 col-xs-12"
+      style="background-color: rgba(255, 255, 255, .5); padding: 1em; margin: 1em;border-radius: 20px;">
+      <div class="row justify-content-center">
+        <h1 class="estilo-x" style="padding: 0em; font-weight: bold;
                     text-align: center;">
-                    {% if user.username == 'admin' %}
-                    Bienvenido/a Administrador
-                    {% else %}
-                    Bienvenido/a {{ user.first_name }}
-                    {% endif %}
-                </h1>
-            </div>
-            <div class="row justify-content-center">
+          {% if user.username == 'admin' %}
+          Bienvenido/a Administrador
+          {% else %}
+          Bienvenido/a {{ user.first_name }}
+          {% endif %}
+        </h1>
+      </div>
+      <div class="row justify-content-center">
 
-                {% if user.profile.photo %}
-                <div style="width: 300px; padding-left: 1em; padding-right: 1em;">
-                    <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}"
-                        class="img-fluid rounded-circle shadow" width="100%" height="auto">
-                {% else %}
-                    <p>No tienes foto</p>
-                {% endif %}
-                </div>
-
-            </div>
-            <div class="row justify-content-center">
-                <a href="{% url 'niveles' %}" class="shadow gradient estilo-x" style="text-decoration: none; padding: 0.5em; border-radius: 20px;
-                font-weight: bold; color: midnightblue;">
-                    ¡JUGUEMOS!
-                </a>
-            </div>
+        {% if user.profile.photo %}
+        <div style="width: 300px; padding-left: 1em; padding-right: 1em;">
+          <img src="{{ request.user.profile.photo.url }}" alt="{{ user.first_name }}"
+            class="img-fluid rounded-circle shadow" width="100%" height="auto">
+          {% else %}
+          <p>No tienes foto</p>
+          {% endif %}
         </div>
+
+      </div>
+      <div class="row justify-content-center">
+        <a href="{% url 'niveles' %}" class="shadow gradient estilo-x" style="text-decoration: none; padding: 0.5em; border-radius: 20px;
+                font-weight: bold; color: midnightblue;">
+          ¡JUGUEMOS!
+        </a>
+      </div>
     </div>
+    <div class="col"></div>
+    <div class="col-md-5 col-xs-12">
+      <div class="row justify-content-center">
+        <h3>Tabla de posiciones</h3>
+      </div>
+      <div class="row" style="margin: 0.5em; background-color: rgba(255, 255, 255, .5);">
+        <h6 style="text-align: center; padding-left: 0.5em;">Nivel Básico</h6>
+        <table class="table table-sm">
+          <tbody>
+            {% for user in list_score_user_level1 %}
+
+            {% if user.0 != 0 %}
+            <tr>
+              {% if user.2 == 1 %}
+              <th scope="row"><img src="{% static 'images/number1.png' %}" alt="1"></th>
+              {% elif user.2 == 2 %}
+              <th scope="row"><img src="{% static 'images/number2.png' %}" alt="1"></th>
+              {% elif user.2 == 3 %}
+              <th scope="row"><img src="{% static 'images/number3.png' %}" alt="1"></th>
+              {% else %}
+              <th>{{user.2}}</th>
+              {% endif %}
+
+              <td>{{ user.1 }}</td>
+              <td>{{ user.0 }}</td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row" style="margin: 0.5em; background-color: rgba(255, 255, 255, .5);">
+        <h6 style="text-align: center; padding-left: 0.5em;">Nivel Intermedio</h6>
+        <table class="table table-sm">
+          <tbody>
+            {% for user in list_score_user_level2 %}
+
+            {% if user.0 != 0 %}
+            <tr>
+              {% if user.2 == 1 %}
+              <th scope="row"><img src="{% static 'images/number1.png' %}" alt="1"></th>
+              {% elif user.2 == 2 %}
+              <th scope="row"><img src="{% static 'images/number2.png' %}" alt="1"></th>
+              {% elif user.2 == 3 %}
+              <th scope="row"><img src="{% static 'images/number3.png' %}" alt="1"></th>
+              {% else %}
+              <th>{{user.2}}</th>
+              {% endif %}
+
+              <td>{{ user.1 }}</td>
+              <td>{{ user.0 }}</td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row" style="margin: 0.5em; background-color: rgba(255, 255, 255, .5);">
+        <h6 style="text-align: center; padding-left: 0.5em;">Nivel Avanzado</h6>
+        <table class="table table-sm">
+          <tbody>
+            {% for user in list_score_user_level3 %}
+
+            {% if user.0 != 0 %}
+            <tr>
+              {% if user.2 == 1 %}
+              <th scope="row"><img src="{% static 'images/number1.png' %}" alt="1"></th>
+              {% elif user.2 == 2 %}
+              <th scope="row"><img src="{% static 'images/number2.png' %}" alt="1"></th>
+              {% elif user.2 == 3 %}
+              <th scope="row"><img src="{% static 'images/number3.png' %}" alt="1"></th>
+              {% else %}
+              <th>{{user.2}}</th>
+              {% endif %}
+
+              <td>{{ user.1 }}</td>
+              <td>{{ user.0 }}</td>
+
+            </tr>
+
+            {% endif %}
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 {% endblock %}
