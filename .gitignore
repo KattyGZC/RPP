@@ -1,6 +1,42 @@
-/media/media
-# Text backup files
+# ─── Environment ─────────────────────────────────────────────────────────────
+.env
+.env.dev
+.env.local
+.env.*.local
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.sqlite3
 *.bak
 
-#Database
-*.sqlite3
+# ─── Node / Frontend ─────────────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ─── Django ──────────────────────────────────────────────────────────────────
+backend/static/
+backend/media/
+!backend/media/defaults/
+
+# ─── IDE ─────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ─── OS ──────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Whisper models cache (large binaries) ───────────────────────────────────
+*.pt

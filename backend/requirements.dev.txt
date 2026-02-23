@@ -1,0 +1,10 @@
+-r requirements.txt
+
+# Testing
+coverage==7.4.1
+factory-boy==3.3.0
+
+# Code quality
+flake8==7.0.0
+isort==5.13.2
+black==24.1.1
