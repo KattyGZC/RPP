@@ -17,7 +17,7 @@ django-redis==5.4.0
 Pillow==10.2.0
 
 # AI - Speech transcription (local, free)
-openai-whisper==20231117
+openai-whisper>=20231117
 
 # AI - Text evaluation / NLP
 spacy==3.7.2
