@@ -1,6 +1,6 @@
 """
 Local Whisper transcription provider.
-Uses OpenAI's open-source Whisper model running entirely on local hardware.
+Uses faster-whisper (CTranslate2 reimplementation of OpenAI Whisper).
 No API key or internet connection required after the model is downloaded.
 """
 import logging
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class WhisperLocalProvider(BaseTranscriptionProvider):
     """
-    Wraps the openai-whisper library.
+    Wraps the faster-whisper library.
     The model is loaded lazily on first use to avoid startup delays.
     Model is cached in memory for subsequent calls.
     """
@@ -30,30 +30,30 @@ class WhisperLocalProvider(BaseTranscriptionProvider):
     def _loaded_model(self):
         """Lazy-load the model on first access (Lazy Initialization pattern)."""
         if self._model is None:
-            import whisper
+            from faster_whisper import WhisperModel
             logger.info("Loading Whisper model '%s'...", self._model_size)
-            self._model = whisper.load_model(self._model_size)
+            self._model = WhisperModel(self._model_size, device="cpu", compute_type="int8")
             logger.info("Whisper model loaded successfully.")
         return self._model
 
     def transcribe(self, audio_file_path: str, language: str = "es") -> TranscriptionResult:
         logger.debug("Transcribing with Whisper: %s", audio_file_path)
-        result = self._loaded_model.transcribe(
+        segments_generator, info = self._loaded_model.transcribe(
             audio_file_path,
             language=language,
             task="transcribe",
-            fp16=False,  # Safer on CPU; set to True only on GPU
         )
+        segments = list(segments_generator)
+        text = " ".join(s.text.strip() for s in segments)
         return TranscriptionResult(
-            text=result["text"].strip(),
+            text=text.strip(),
             language=language,
-            confidence=self._calculate_confidence(result),
-            duration_seconds=result.get("duration", 0.0),
+            confidence=self._calculate_confidence(segments),
+            duration_seconds=info.duration,
         )
 
-    def _calculate_confidence(self, result: dict) -> float:
-        segments = result.get("segments", [])
+    def _calculate_confidence(self, segments: list) -> float:
         if not segments:
             return 0.0
-        avg_logprob = sum(s.get("avg_logprob", -1.0) for s in segments) / len(segments)
+        avg_logprob = sum(s.avg_logprob for s in segments) / len(segments)
         return round(max(0.0, min(1.0, math.exp(avg_logprob))), 3)
