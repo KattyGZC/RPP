@@ -11,6 +11,7 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Download spaCy Spanish model
