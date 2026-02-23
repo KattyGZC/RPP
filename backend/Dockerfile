@@ -14,8 +14,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Download spaCy Spanish model
-RUN python -m spacy download es_core_news_sm
+# Download spaCy Spanish model (direct install avoids version resolution issues)
+RUN pip install --no-cache-dir https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.7.0/es_core_news_sm-3.7.0-py3-none-any.whl
 
 # Copy project
 COPY . .
